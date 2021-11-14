@@ -26,12 +26,12 @@ services:
     expose:
       - '3306'
     volumes:
-      - my-db:/var/lib/mysql
+      - ediaristas-db:/var/lib/mysql
     networks:
       - ediaristas
 
 volumes:
-  my-db:
+  ediaristas-db:
 
 networks:
   ediaristas:
