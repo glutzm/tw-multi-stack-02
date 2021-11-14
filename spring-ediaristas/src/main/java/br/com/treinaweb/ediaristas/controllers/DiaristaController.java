@@ -2,9 +2,11 @@ package br.com.treinaweb.ediaristas.controllers;
 
 import br.com.treinaweb.ediaristas.models.Diarista;
 import br.com.treinaweb.ediaristas.services.DiaristaService;
+import br.com.treinaweb.ediaristas.validators.CepValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,6 +20,14 @@ public class DiaristaController {
 
     @Autowired
     private DiaristaService diaristaService;
+
+    @Autowired
+    private CepValidator cepValidator;
+
+    @InitBinder("diarista")
+    private void initBinder(WebDataBinder binder) {
+        binder.addValidators(cepValidator);
+    }
 
     @GetMapping
     public ModelAndView listar() {

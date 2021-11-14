@@ -79,7 +79,7 @@
     </div>
 
     <div class="row mb-1">
-      <div class="col-sm-12 col-md-2">
+      <div class="col-sm-12 col-md-3">
         <label for="cep" class="form-label">CEP</label>
         <input type="text" class="form-control" id="cep" th:field="*{cep}" data-mask="00000-000">
         <ul>
@@ -87,7 +87,7 @@
         </ul>
       </div>
 
-      <div class="col-sm-12 col-md-2">
+      <div class="col-sm-12 col-md-3">
         <label for="estado" class="form-label">Estado</label>
         <input type="text" class="form-control" id="estado" th:field="*{estado}">
         <ul>
@@ -102,13 +102,6 @@
           <li th:each="erro: ${#fields.errors('cidade')}" th:text="${erro}"></li>
         </ul>
       </div>
-      <div class="col-sm-12 col-md-2">
-        <label for="codigoIbge" class="form-label">Código IBGE</label>
-        <input type="text" class="form-control" id="codigoIbge" th:field="*{codigoIbge}">
-        <ul>
-          <li th:each="erro: ${#fields.errors('codigoIbge')}" th:text="${erro}"></li>
-        </ul>
-      </div>
     </div>
     <div class="row mb-3">
       <div class="col-12">
@@ -117,11 +110,11 @@
       </div>
     </div>
 
-
     <div class="mb-2">
       <input type="button" class="btn btn-secondary" onclick="history.back(-1)" value="Voltar"/>
       <button class="btn btn-success" type="submit">Salvar</button>
     </div>
+
   </form>
 </main>
 </body>

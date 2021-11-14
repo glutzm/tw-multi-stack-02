@@ -16,6 +16,9 @@ public class DiaristaService {
     private DiaristaRepository diaristaRepository;
 
     @Autowired
+    private ViaCepService viaCepService;
+
+    @Autowired
     private FileService fileService;
 
     public List<Diarista> listar() {
@@ -28,6 +31,9 @@ public class DiaristaService {
 
     public void cadastrar(MultipartFile imagem, Diarista diarista) throws IOException {
         diarista.setFoto(fileService.salvar(imagem));
+
+        defineCep(diarista);
+
         diaristaRepository.save(diarista);
     }
 
@@ -39,10 +45,19 @@ public class DiaristaService {
             diarista.setFoto(fileService.salvar(imagem));
         }
 
+        defineCep(diarista);
+
         diaristaRepository.save(diarista);
     }
 
     public void excluir(Long id) {
         diaristaRepository.deleteById(id);
+    }
+
+    private void defineCep(Diarista diarista) {
+        var cep = diarista.getCep();
+        var endereco = viaCepService.buscarEnderecoPorCep(cep);
+        var codigoIbge = endereco.getIbge();
+        diarista.setCodigoIbge(codigoIbge);
     }
 }
