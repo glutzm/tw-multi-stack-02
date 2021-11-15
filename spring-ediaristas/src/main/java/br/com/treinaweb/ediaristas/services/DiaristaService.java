@@ -1,8 +1,10 @@
 package br.com.treinaweb.ediaristas.services;
 
+import br.com.treinaweb.ediaristas.dtos.DiaristasPagedResponse;
 import br.com.treinaweb.ediaristas.models.Diarista;
 import br.com.treinaweb.ediaristas.repositories.DiaristaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,6 +29,18 @@ public class DiaristaService {
 
     public Diarista buscarPorId(Long id) {
         return diaristaRepository.getById(id);
+    }
+
+    public DiaristasPagedResponse buscarDiaristasPorCep(String cep) {
+        var endereco = viaCepService.buscarEnderecoPorCep(cep);
+        var codigoIbge = endereco.getIbge();
+
+        var pageable = PageRequest.of(0, 6);
+        var diaristas = diaristaRepository.findByCodigoIbge(codigoIbge, pageable);
+
+        var excedenteDiaristas = diaristas.getTotalElements() > 6 ? diaristas.getTotalElements() - 6 : 0;
+
+        return new DiaristasPagedResponse(diaristas.getContent(), excedenteDiaristas);
     }
 
     public void cadastrar(MultipartFile imagem, Diarista diarista) throws IOException {

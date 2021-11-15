@@ -1,4 +1,4 @@
-package br.com.treinaweb.ediaristas.controllers;
+package br.com.treinaweb.ediaristas.web.controllers;
 
 import br.com.treinaweb.ediaristas.services.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
